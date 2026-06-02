@@ -36,7 +36,7 @@ func HandleAGIRequest(conn net.Conn) {
 	// _, err := conn.Write([]byte("200 result=0\n"))
 	// if err != nil {
 	// 	log.Println("Error writing AGI response:", err)
-	}
+	// }
 }
 
 func main() {
