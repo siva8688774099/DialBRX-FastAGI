@@ -28,13 +28,13 @@ func HandleAGIRequest(conn net.Conn) {
 }
 
 func main() {
-	listener, err := net.Listen("tcp", ":5473")
+	listener, err := net.Listen("tcp", ":4573")
 	if err != nil {
 		log.Fatal("Error starting server:", err)
 		os.Exit(1)
 	}
 	defer listener.Close()
-	fmt.Printf("FastAGI server running on port 5473\n")
+	fmt.Printf("FastAGI server running on port 4573\n")
 
 	for {
 		conn, err := listener.Accept()
