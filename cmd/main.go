@@ -12,6 +12,7 @@ import (
 func HandleAGIRequest(conn net.Conn) {
 	// Placeholder for handling AGI requests
 	// You would read from the connection, parse the AGI commands, and respond accordingly
+	requestMapping := make(map[string]string)
 	reader := bufio.NewReader(conn)
 	for {
 		line, err := reader.ReadString('\n')
@@ -22,8 +23,10 @@ func HandleAGIRequest(conn net.Conn) {
 		if strings.TrimSpace(line) == "" {
 			break
 		}
+		requestMapping[strings.Split(line, ":")[0]] = strings.Split(line, ":")[1]
 		fmt.Println("AGI ENV:", line)
 	}
+	fmt.Println("Final AGI ENV mapping:", requestMapping)
 
 }
 
