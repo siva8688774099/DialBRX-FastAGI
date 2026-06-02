@@ -33,9 +33,9 @@ func HandleAGIRequest(conn net.Conn) {
 	}
 	fmt.Println("Final AGI ENV mapping:", requestMapping)
 
-	_, err := conn.Write([]byte("200 result=0\n"))
-	if err != nil {
-		log.Println("Error writing AGI response:", err)
+	// _, err := conn.Write([]byte("200 result=0\n"))
+	// if err != nil {
+	// 	log.Println("Error writing AGI response:", err)
 	}
 }
 
