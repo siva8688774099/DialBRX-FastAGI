@@ -14,7 +14,7 @@ func HandleAGIRequest(conn net.Conn) {
 
 	// Placeholder for handling AGI requests
 	// You would read from the connection, parse the AGI commands, and respond accordingly
-	requestMapping := make(map[string]string)
+	requestMapping := make(map[string]interface{})
 	reader := bufio.NewReader(conn)
 	for {
 		line, err := reader.ReadString('\n')
