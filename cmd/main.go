@@ -63,6 +63,7 @@ func main() {
 		// Do something with the request mapping, e.g., update call details
 		fmt.Printf("AGI Network Script: %+v\n", requestMapping["agi_network_script"])
 		if requestMapping["agi_network_script"] == "pushcallBackDetails" {
+			fmt.Println("Handling push call back details")
 			err = repositories.PushCallBackDetails(requestMapping)
 			if err != nil {
 				log.Println("Error pushing call back details:", err)
@@ -70,6 +71,7 @@ func main() {
 			return
 		}
 		if requestMapping["agi_network_script"] == "updatePostConnectDetails" {
+			fmt.Println("Handling update post connect details")
 			err = repositories.UpdateCallConnectDetails(requestMapping)
 			if err != nil {
 				log.Println("Error updating call connect details:", err)
