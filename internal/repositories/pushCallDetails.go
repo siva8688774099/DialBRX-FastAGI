@@ -17,6 +17,7 @@ func UpdateCallConnectDetails(callDetails map[string]interface{}) error {
 		HangupBy:   callDetails["agi_arg_3"].(string),
 	}
 	url := config.AppConfig.PushCallDetails
+	fmt.Println("URL for pushing call details:", url)
 	updatePostConnectDetailsJSON, err := json.Marshal(updatePostConnectDetails)
 	if err != nil {
 		return err
