@@ -7,9 +7,11 @@ import (
 	"net"
 	"os"
 	"strings"
+
+	"github.com/Siva_Nutakki/DialBRX-FastAGI/internal/repositories"
 )
 
-func HandleAGIRequest(conn net.Conn) {
+func HandleAGIRequest(conn net.Conn) map[string]interface{} {
 	defer conn.Close()
 
 	// Placeholder for handling AGI requests
@@ -37,6 +39,7 @@ func HandleAGIRequest(conn net.Conn) {
 	if err != nil {
 		log.Println("Error writing AGI response:", err)
 	}
+	return requestMapping
 }
 
 func main() {
@@ -53,6 +56,20 @@ func main() {
 		if err != nil {
 			log.Fatal("Error accepting connection:", err)
 		}
-		go HandleAGIRequest(conn)
+		requestMapping := HandleAGIRequest(conn)
+		// Do something with the request mapping, e.g., update call details
+		if requestMapping["agi_network_script"] == "pushcallBackDetails" {
+			err = repositories.PushCallBackDetails(requestMapping)
+			if err != nil {
+				log.Println("Error pushing call back details:", err)
+			}
+			return
+		}
+		if requestMapping["agi_network_script"] == "updatePostConnectDetails" {
+			err = repositories.UpdateCallConnectDetails(requestMapping)
+			if err != nil {
+				log.Println("Error updating call connect details:", err)
+			}
+		}
 	}
 }

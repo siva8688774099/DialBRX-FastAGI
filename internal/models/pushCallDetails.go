@@ -6,7 +6,7 @@ type UpdatePostConnectDetails struct {
 	HangupBy   string `json:"hangup_by"`
 }
 
-type pushCallbackDetails struct {
+type PushCallbackDetails struct {
 	UID            string `json:"uid"`
 	CallDuration   int    `json:"call_duration"`
 	DialedDuration int    `json:"dialed_duration"`
