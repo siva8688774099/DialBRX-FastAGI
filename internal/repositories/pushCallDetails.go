@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strconv"
 	"strings"
 
 	"github.com/Siva_Nutakki/DialBRX-FastAGI/config"
@@ -43,27 +42,10 @@ func UpdateCallConnectDetails(callDetails map[string]interface{}) error {
 }
 
 func PushCallBackDetails(callDetails map[string]interface{}) error {
-	CallDurationStr, ok := callDetails["agi_arg_2"].(string)
-	DialedDurationStr, ok := callDetails["agi_arg_3"].(string)
-
-	if !ok {
-		return fmt.Errorf("invalid call duration")
-	}
-	callDuration, err := strconv.Atoi(CallDurationStr)
-	if err != nil {
-		return fmt.Errorf("invalid call duration: %v", err)
-	}
-	if !ok {
-		return fmt.Errorf("invalid dialed duration")
-	}
-	dialedDuration, err := strconv.Atoi(DialedDurationStr)
-	if err != nil {
-		return fmt.Errorf("invalid dialed duration: %v", err)
-	}
 	pushCallbackDetails := models.PushCallbackDetails{
 		UID:            callDetails["agi_arg_1"].(string),
-		CallDuration:   callDuration,
-		DialedDuration: dialedDuration,
+		CallDuration:   int(callDetails["agi_arg_2"].(float64)),
+		DialedDuration: int(callDetails["agi_arg_3"].(float64)),
 		CallStatus:     callDetails["agi_arg_4"].(string),
 		HangupBy:       callDetails["agi_arg_5"].(string),
 	}
