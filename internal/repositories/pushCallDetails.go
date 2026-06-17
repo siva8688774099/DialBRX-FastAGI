@@ -44,8 +44,8 @@ func UpdateCallConnectDetails(callDetails map[string]interface{}) error {
 func PushCallBackDetails(callDetails map[string]interface{}) error {
 	pushCallbackDetails := models.PushCallbackDetails{
 		UID:            callDetails["agi_arg_1"].(string),
-		CallDuration:   int(callDetails["agi_arg_2"].(float64)),
-		DialedDuration: int(callDetails["agi_arg_3"].(float64)),
+		CallDuration:   int(callDetails["agi_arg_2"].(int)),
+		DialedDuration: int(callDetails["agi_arg_3"].(int)),
 		CallStatus:     callDetails["agi_arg_4"].(string),
 		HangupBy:       callDetails["agi_arg_5"].(string),
 	}
