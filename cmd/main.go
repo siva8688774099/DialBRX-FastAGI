@@ -8,6 +8,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/Siva_Nutakki/DialBRX-FastAGI/config"
 	"github.com/Siva_Nutakki/DialBRX-FastAGI/internal/repositories"
 )
 
@@ -43,6 +44,7 @@ func HandleAGIRequest(conn net.Conn) map[string]interface{} {
 }
 
 func main() {
+	config.LoadEnv()
 	listener, err := net.Listen("tcp", ":4573")
 	if err != nil {
 		log.Fatal("Error starting server:", err)
