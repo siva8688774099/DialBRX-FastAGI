@@ -57,6 +57,7 @@ func main() {
 			log.Fatal("Error accepting connection:", err)
 		}
 		requestMapping := HandleAGIRequest(conn)
+		fmt.Println("Received AGI request mapping:", requestMapping)
 		// Do something with the request mapping, e.g., update call details
 		if requestMapping["agi_network_script"] == "pushcallBackDetails" {
 			err = repositories.PushCallBackDetails(requestMapping)
