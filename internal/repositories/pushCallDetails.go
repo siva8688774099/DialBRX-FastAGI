@@ -58,7 +58,7 @@ func PushCallBackDetails(callDetails map[string]string) error {
 	pushCallbackDetails := models.PushCallbackDetails{
 		UID:            callDetails["agi_arg_1"],
 		CallDuration:   callDuration,
-		DialedDuration: dialedDuration,
+		DialDuration: dialedDuration,
 		CallStatus:     callDetails["agi_arg_4"],
 		HangupBy:       callDetails["agi_arg_5"],
 	}
