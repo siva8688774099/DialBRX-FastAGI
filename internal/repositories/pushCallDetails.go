@@ -12,11 +12,11 @@ import (
 	"github.com/Siva_Nutakki/DialBRX-FastAGI/internal/models"
 )
 
-func UpdateCallConnectDetails(callDetails map[string]interface{}) error {
+func UpdateCallConnectDetails(callDetails map[string]string) error {
 	updatePostConnectDetails := models.UpdatePostConnectDetails{
-		UID:        callDetails["agi_arg_1"].(string),
-		CallStatus: callDetails["agi_arg_2"].(string),
-		HangupBy:   callDetails["agi_arg_3"].(string),
+		UID:        callDetails["agi_arg_1"],
+		CallStatus: callDetails["agi_arg_2"],
+		HangupBy:   callDetails["agi_arg_3"],
 	}
 	url := config.AppConfig.PushCallDetails
 	fmt.Println("URL for pushing call details:", url)

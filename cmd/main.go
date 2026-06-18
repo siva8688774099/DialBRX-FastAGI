@@ -12,12 +12,12 @@ import (
 	"github.com/Siva_Nutakki/DialBRX-FastAGI/internal/repositories"
 )
 
-func HandleAGIRequest(conn net.Conn) map[string]interface{} {
+func HandleAGIRequest(conn net.Conn) map[string]string {
 	defer conn.Close()
 
 	// Placeholder for handling AGI requests
 	// You would read from the connection, parse the AGI commands, and respond accordingly
-	requestMapping := make(map[string]interface{})
+	requestMapping := make(map[string]string)
 	reader := bufio.NewReader(conn)
 	for {
 		line, err := reader.ReadString('\n')
