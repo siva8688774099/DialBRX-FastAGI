@@ -68,7 +68,6 @@ func main() {
 			if err != nil {
 				log.Println("Error pushing call back details:", err)
 			}
-			return
 		}
 		if requestMapping["agi_network_script"] == "updatePostConnectDetails" {
 			fmt.Println("Handling update post connect details")
