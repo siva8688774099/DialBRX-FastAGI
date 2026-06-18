@@ -44,23 +44,33 @@ func UpdateCallConnectDetails(callDetails map[string]string) error {
 }
 
 func PushCallBackDetails(callDetails map[string]string) error {
-	callDuration, err := strconv.Atoi(callDetails["agi_arg_2"])
-	if err != nil {
-		fmt.Println("Error converting agi_arg_2:", err)
-		return fmt.Errorf("invalid integer value for agi_arg_2: %v", err)
+	// Handle empty agi_arg_2 by defaulting to 0
+	callDuration := 0
+	if callDetails["agi_arg_2"] != "" {
+		var err error
+		callDuration, err = strconv.Atoi(callDetails["agi_arg_2"])
+		if err != nil {
+			fmt.Println("Error converting agi_arg_2:", err)
+			return fmt.Errorf("invalid integer value for agi_arg_2: %v", err)
+		}
 	}
 
-	dialedDuration, err := strconv.Atoi(callDetails["agi_arg_3"])
-	if err != nil {
-		fmt.Println("Error converting agi_arg_3:", err)
-		return fmt.Errorf("invalid integer value for agi_arg_3: %v", err)
+	// Handle empty agi_arg_3 by defaulting to 0
+	dialedDuration := 0
+	if callDetails["agi_arg_3"] != "" {
+		var err error
+		dialedDuration, err = strconv.Atoi(callDetails["agi_arg_3"])
+		if err != nil {
+			fmt.Println("Error converting agi_arg_3:", err)
+			return fmt.Errorf("invalid integer value for agi_arg_3: %v", err)
+		}
 	}
 	pushCallbackDetails := models.PushCallbackDetails{
-		UID:            callDetails["agi_arg_1"],
-		CallDuration:   callDuration,
+		UID:          callDetails["agi_arg_1"],
+		CallDuration: callDuration,
 		DialDuration: dialedDuration,
-		CallStatus:     callDetails["agi_arg_4"],
-		HangupBy:       callDetails["agi_arg_5"],
+		CallStatus:   callDetails["agi_arg_4"],
+		HangupBy:     callDetails["agi_arg_5"],
 	}
 	url := config.AppConfig.PushCallDetails
 	pushCallbackDetailsJSON, err := json.Marshal(pushCallbackDetails)
