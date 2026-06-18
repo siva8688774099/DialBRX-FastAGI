@@ -8,8 +8,8 @@ type UpdatePostConnectDetails struct {
 
 type PushCallbackDetails struct {
 	UID            string `json:"uid"`
-	CallDuration   string    `json:"call_duration"`
-	DialedDuration string    `json:"dialed_duration"`
+	CallDuration   int    `json:"call_duration"`
+	DialedDuration int    `json:"dialed_duration"`
 	CallStatus     string `json:"status_code"`
 	HangupBy       string `json:"hangup_by"`
 }

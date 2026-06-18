@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"strings"
 
+	"strconv"
+
 	"github.com/Siva_Nutakki/DialBRX-FastAGI/config"
 	"github.com/Siva_Nutakki/DialBRX-FastAGI/internal/models"
 )
@@ -41,13 +43,24 @@ func UpdateCallConnectDetails(callDetails map[string]interface{}) error {
 	return nil
 }
 
-func PushCallBackDetails(callDetails map[string]interface{}) error {
+func PushCallBackDetails(callDetails map[string]string) error {
+	callDuration, err := strconv.Atoi(callDetails["agi_arg_2"])
+	if err != nil {
+		fmt.Println("Error converting agi_arg_2:", err)
+		return fmt.Errorf("invalid integer value for agi_arg_2: %v", err)
+	}
+
+	dialedDuration, err := strconv.Atoi(callDetails["agi_arg_3"])
+	if err != nil {
+		fmt.Println("Error converting agi_arg_3:", err)
+		return fmt.Errorf("invalid integer value for agi_arg_3: %v", err)
+	}
 	pushCallbackDetails := models.PushCallbackDetails{
-		UID:            callDetails["agi_arg_1"].(string),
-		CallDuration:   callDetails["agi_arg_2"].(string),
-		DialedDuration: callDetails["agi_arg_3"].(string),
-		CallStatus:     callDetails["agi_arg_4"].(string),
-		HangupBy:       callDetails["agi_arg_5"].(string),
+		UID:            callDetails["agi_arg_1"],
+		CallDuration:   callDuration,
+		DialedDuration: dialedDuration,
+		CallStatus:     callDetails["agi_arg_4"],
+		HangupBy:       callDetails["agi_arg_5"],
 	}
 	url := config.AppConfig.PushCallDetails
 	pushCallbackDetailsJSON, err := json.Marshal(pushCallbackDetails)
