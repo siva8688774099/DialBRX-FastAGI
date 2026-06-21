@@ -44,6 +44,11 @@ func UpdateCallConnectDetails(callDetails map[string]string) error {
 }
 
 func PushCallBackDetails(callDetails map[string]string) error {
+	var CallStatusMapping = map[string]string{
+		"CUSTOMER_ANSWER":   "CUSTOMER_HANGUP",
+		"CUSTOMER_CANCEL":   "CUSTOMER_CANCEL",
+		"CUSTOMER_NOANSWER": "CUSTOMER_NOANSWER",
+	}
 	// Handle empty agi_arg_2 by defaulting to 0
 	callDuration := 0
 	if callDetails["agi_arg_2"] != "" {
@@ -69,7 +74,7 @@ func PushCallBackDetails(callDetails map[string]string) error {
 		UID:          callDetails["agi_arg_1"],
 		CallDuration: callDuration,
 		DialDuration: dialedDuration,
-		CallStatus:   callDetails["agi_arg_4"],
+		CallStatus:   CallStatusMapping[callDetails["agi_arg_4"]],
 		HangupBy:     callDetails["agi_arg_5"],
 	}
 	url := config.AppConfig.PushCallDetails
